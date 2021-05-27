@@ -33,29 +33,61 @@ var sum = function(array) {
 };
 
 
+
 // 3. Sum all numbers in an array containing nested arrays.
 // arraySum([1,[2,3],[[4]],5]); // 15
+
 var arraySum = function(array) {
+  var sum = 0;
   if (array.length === 0) {
     return 0;
   }
-  if (Array.isArray(array[0])) {
-    array.forEach(function(item) {
-      return array[0] + sumArray(array.slice(1));
-    });
-  } else {
-    return array[0];
-  };
+  if (!Array.isArray(array)) {
+    return array;
+  }
+  array.forEach(function(item) {
+    sum += arraySum(item);
+  });
+  return sum;
 };
+
+
 
 // 4. Check if a number is even.
 var isEven = function(n) {
+  if (n === 0) {
+    return true;
+  }
+  if (n === 1 || n === -1) {
+    return false;
+  }
+  if (n > 1) {
+    return isEven(n - 2);
+  } else if (n < -1) {
+      return isEven(n + 2);
+    }
 };
 
 // 5. Sum all integers below a given integer.
 // sumBelow(10); // 45
 // sumBelow(7); // 21
 var sumBelow = function(n) {
+  // accumulator
+  var sum = 0;
+  // base case / pivot
+  if (n === 1 || n === -1) {
+    return n;
+  } else if (n === 0) {
+    return n;
+  }
+  // need to iterate?  NO
+  // recursive call
+  if (n > 0) {
+    return sum += sumBelow(n - 1);
+  }
+  if (n < 0) {
+    return sum -= sumBelow(n + 1);
+  }
 };
 
 // 6. Get the integers within a range (x, y).
